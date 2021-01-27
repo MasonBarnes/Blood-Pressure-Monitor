@@ -19,8 +19,10 @@ elif platform.system() == "Darwin":
     os.system("sudo pip3 install flask")
     os.system("sudo pip3 install matplotlib")
     with open("main.py", "r") as f:
-        to_write = f.read().replace("# This is a placeholder, please ignore this", "webbroswer.open('http://localhost:7634/')")
-    print("Installation done! Please run main.py for the app.")
+        to_write = f.read().replace("# This is a placeholder, please ignore this", "webbrowser.open('http://localhost:7634/')")
+    with open("main.py", "w") as f:
+        f.write(to_write)
+    print("---------------------\n\nInstallation done! Please run main.py for the app.\n\n---------------------")
     time.sleep(5)
 else:
     print("Operating system not supported!")
