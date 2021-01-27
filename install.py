@@ -19,9 +19,15 @@ elif platform.system() == "Darwin":
     import grp
     os.system("sudo pip3 install flask")
     os.system("sudo pip3 install matplotlib")
+    os.chdir(os.path.dirname(os.path.abspath(__file__)).replace("install.py", "main.py"))
     cwd = os.getcwd()
     main_path = os.path.abspath("main.py")
-    os.chdir("~/Library/LaunchAgents")
+    try:
+        os.chdir("/Users/" + getpass.getuser() + "/Library/LaunchAgents")
+    except OSError:
+        os.chdir("/Users/" + getpass.getuser() + "/Library")
+        os.mkdir("LaunchAgents")
+        os.chdir("LaunchAgents")
     with open("blood_pressure_manager.plist", "w") as f:
         f.write("""
 <?xml version="1.0" encoding="UTF-8"?>
@@ -37,16 +43,13 @@ elif platform.system() == "Darwin":
     <key>UserName</key>
     <string>""" + getpass.getuser() + """</string>
 
-    <key>GroupName</key>
-    <string>""" + grp.getgrnam(getpass.getuser()).gr_gid + """</string>
-
     <key>ProgramArguments</key>
     <array>
             <string>sudo python3 \"""" + main_path + """\"</string>
     </array>
 </dict>
 </plist>
-        """).strip()
+        """.strip())
     webbrowser.open("http://localhost:7634/")
     os.chdir(cwd)
     os.system("sudo python3 \"" + main_path + "\"")

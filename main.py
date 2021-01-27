@@ -70,7 +70,7 @@ def add_data():
     now = datetime.now()
     blood_high = int(flask.request.args.get("high"))
     blood_low = int(flask.request.args.get("low"))
-    if flask.request.args.get("date") == "null":
+    if flask.request.args.get("date") == "null" or flask.request.args.get("date") == "" or flask.request.args.get("date") == None:
         date = now.strftime("%m/%d/%Y")
         date = date[:-4]+date[-2:]
     else:
@@ -99,7 +99,10 @@ def add_data():
 
 @app.route("/weekly-plot")
 def display_weekly_plot():
-    os.system("python3 weekly_chart.py")
+    if platform.system() == "Windows":
+        os.system("python3 weekly_chart.py")
+    elif platform.system() == "Darwin":
+        os.system("sudo python3 weekly_chart.py")
     return flask.send_file('weekly_chart.png')
 
 @app.route("/all-time-plot")
