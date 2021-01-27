@@ -111,5 +111,5 @@ def display_all_time_plot():
     os.system("python3 all_time_chart.py")
     return flask.send_file('all_time_chart.png')
 
-# This is a placeholder, please ignore this
-app.run(host="localhost", port=7634)
+if platform.system() == "Darwin":
+    webbrowser.open("http://localhost:7634/")
