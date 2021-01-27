@@ -20,7 +20,8 @@ elif platform.system() == "Darwin":
     os.system("sudo pip3 install matplotlib")
     with open("main.py", "r") as f:
         to_write = f.read().replace("# This is a placeholder, please ignore this", "webbroswer.open('http://localhost:7634/')")
-    os.system("python3 main.py")
+    print("Installation done! Please run main.py for the app.")
+    time.sleep(5)
 else:
     print("Operating system not supported!")
     time.sleep(5)
