@@ -9,6 +9,7 @@ Created on Tue Jan 26 17:23:33 2021
 import os
 import platform
 import flask
+import webbrowser
 from datetime import datetime
 app = flask.Flask(__name__)
 
@@ -110,4 +111,5 @@ def display_all_time_plot():
     os.system("python3 all_time_chart.py")
     return flask.send_file('all_time_chart.png')
 
+# This is a placeholder, please ignore this
 app.run(host="localhost", port=7634)
