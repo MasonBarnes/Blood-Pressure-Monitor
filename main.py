@@ -113,3 +113,4 @@ def display_all_time_plot():
 
 if platform.system() == "Darwin":
     webbrowser.open("http://localhost:7634/")
+app.run(host="localhost", port=7634)
