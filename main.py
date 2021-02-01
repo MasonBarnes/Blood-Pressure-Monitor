@@ -64,7 +64,45 @@ def home():
     except:
         data3 = "Average All Time High: NOT AVAILABLE"
         data4 = "Average All Time Low: NOT AVAILABLE"
-    with open("web/index.html") as f: return f.read().replace("DATA1", data1).replace("DATA2", data2).replace("DATA3", data3).replace("DATA4", data4)
+    return """<!DOCTYPE html>
+<html>
+<head>
+	<title>Blood Pressure Monitor</title>
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+	</style>
+	<script>
+		function httpGet(theUrl) {
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+		    xmlHttp.send( null );
+		    return xmlHttp.responseText;
+		}
+		function add_data() {
+			date = prompt("Date in MM/DD/YY format (leave empty for today):");
+			bloodhigh = prompt("Blood pressure high:");
+			bloodlow = prompt("Blood pressure low:");
+			window.location.replace("http://localhost:7634/add-data?high=" + bloodhigh + "&low=" + bloodlow + "&date=" + date);
+		}
+	</script>
+</head>
+<body>
+	<center>
+		<h1>Blood Pressure Monitor</h1>
+		<button onclick="add_data();">Add Data</button>
+		<br><br><br>
+		<img src="http://localhost:7634/all-time-plot">
+		<img src="http://localhost:7634/weekly-plot">
+		<br>
+		<h3>DATA1</h3>
+		<h3>DATA2</h3>
+		<h3>DATA3</h3>
+		<h3>DATA4</h3>
+	</center>
+</body>
+</html>""".replace("DATA1", data1).replace("DATA2", data2).replace("DATA3", data3).replace("DATA4", data4)
 
 @app.route("/add-data", methods=['GET'])
 def add_data():
